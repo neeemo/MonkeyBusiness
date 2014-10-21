@@ -33,6 +33,8 @@ Use [Eclipse](http://eclipse.org) or [IDEA](http://www.jetbrains.com/idea)? Run 
 
 These are all UNIX commands. Got Windows? We recommend [Cygwin](https://www.cygwin.com/).
 
+Issues with `maven` or `java`? Try downloading the latest [Java](https://www.java.com/en/) version (1.8).
+
 Make sure to surf to your team page before running the above commands...
 
 Your monkey is waiting for you!
