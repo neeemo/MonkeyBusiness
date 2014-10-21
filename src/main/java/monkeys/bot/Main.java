@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         // The server should not be changed during this challenge
         String server = System.getenv("SERVER");
-        if (server == null) server = "http://warmup.monkeymusicchallenge.com/";
+        if (server == null) server = "http://warmup.monkeymusicchallenge.com/team/";
 
         // Read configuration from environment
         String team = null, apiKey = null;
