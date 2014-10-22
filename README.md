@@ -11,7 +11,7 @@ For this starter kit, you will need basic knowledge of:
 * [Java](http://youtu.be/kLO1djacsfg)
 * [Maven](http://maven.apache.org)
 
-Make sure to have Maven [Maven](http://maven.apache.org) installed on your system.
+Make sure to have [Maven](http://maven.apache.org) installed on your system.
 
 Also, if you run into trouble, make sure to use Java 1.7 or newer.
 
