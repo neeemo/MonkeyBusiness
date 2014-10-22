@@ -13,7 +13,7 @@ For this starter kit, you will need basic knowledge of:
 
 Make sure to have [Maven](http://maven.apache.org) installed on your system.
 
-Also, if you run into trouble, make sure to use Java 1.7 or newer.
+Also, if you run into trouble, make sure to use the latest version of Java.
 
 ### Getting started
 
@@ -31,9 +31,9 @@ java -jar target/warmup.jar <your-team-name> <your-api-key>
 
 Use [Eclipse](http://eclipse.org) or [IDEA](http://www.jetbrains.com/idea)? Run `mvn eclipse:eclipse` or `mvn idea:idea` and then import into your favorite IDE.
 
-These are all UNIX commands. Got Windows? We recommend [Cygwin](https://www.cygwin.com/).
+Issues with `maven` or `java`? Did you remember to upgrade your [Java](https://www.java.com/en/) to version 1.8?
 
-Issues with `maven` or `java`? Try downloading the latest [Java](https://www.java.com/en/) version (1.8).
+These are all UNIX commands. Got Windows? We recommend [Cygwin](https://www.cygwin.com/).
 
 Make sure to surf to your team page before running the above commands...
 
