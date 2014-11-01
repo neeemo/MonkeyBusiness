@@ -39,6 +39,7 @@ public class Main {
     //
     // Surf to this URL and watch your monkey carry out your commands!
     final String teamUrl = SERVER_URL + "/team/" + teamName;
+    System.out.println("Team Url: " + teamUrl);
 
     // We've put the AI-code in a separate class
     final AI ai = new AI();
