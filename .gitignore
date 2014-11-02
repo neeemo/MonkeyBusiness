@@ -4,3 +4,29 @@ target/
 dependency-reduced-pom.xml
 .idea
 *.iml
+*.ipr
+*.iws
+out/
+com_crashlytics_export_strings.xml
+
+## Eclipse
+.classpath
+.project
+.metadata
+**/bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+
+## OS Specific
+.DS_Store
+android/assets/Thumbs.db
+Graphic\ design\ and\ concept/Inspiration/Thumbs.db
+.idea/workspace.xml
