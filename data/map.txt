@@ -1,0 +1,12 @@
+row
+user,empty,empty,empty,empty,empty
+row
+playlist,empty,empty,wall,wall,empty
+row
+wall,wall,wall,album,empty,empty,
+row
+empty,empty,empty,wall,empty,song
+row
+empty,wall,empty,empty,empty,wall
+row
+monkey,wall,song,wall,empty,playlist
