@@ -106,7 +106,10 @@ public class AI {
         .getJSONArray(currentPositionOfMonkey.getInt(0))
         .getString(currentPositionOfMonkey.getInt(1));
 
+
+
     // TODO: You may want to do something smarter here
+    System.out.println(currentLevelLayout);
     return this.randomDirection();
   }
 
