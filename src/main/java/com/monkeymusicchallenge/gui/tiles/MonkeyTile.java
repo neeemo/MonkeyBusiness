@@ -4,15 +4,21 @@ import com.monkeymusicchallenge.gui.Tile;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Daniel on 11/2/2014.
  */
 public class MonkeyTile extends Tile {
+
+  private List<String> swag;
+
   public MonkeyTile() {
     super();
 
@@ -23,5 +29,12 @@ public class MonkeyTile extends Tile {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+    swag = new ArrayList<>();
+  }
+
+
+  public void addSwag(String swag) {
+    this.swag.add(swag);
   }
 }

@@ -21,7 +21,7 @@ public class WorldFactory {
     worldFile = new File(worlds);
   }
 
-  public void createWorld(int worldNr, JFrame window) throws FileNotFoundException {
+  public Tile[][] createWorld(int worldNr) throws FileNotFoundException {
     String world = extractWorld(worldNr);
     Scanner worldScanner = new Scanner(world);
 
@@ -36,13 +36,16 @@ public class WorldFactory {
       String line = worldScanner.nextLine();
       Scanner lineScanner = new Scanner(line);
 
+      int nrOfUsers = 0;
+
       while(lineScanner.hasNext()) {
         gridX++;
         String tile = lineScanner.next();
-        System.out.println(tile);
         switch (tile) {
           case "m":
-            tiles.add(new MonkeyTile());
+            Tile player = new MonkeyTile();
+            player.setTag("m" + nrOfUsers++);
+            tiles.add(player);
             break;
           case "g":
             tiles.add(new GrassTile());
@@ -66,12 +69,15 @@ public class WorldFactory {
       }
     }
 
-    GridLayout grid = new GridLayout(gridX, gridY);
-    window.setLayout(grid);
+    Tile[][] tileGrid = new Tile[gridY][gridX];
 
-    for (Tile tile: tiles) {
-      window.add(tile);
+    for (int y = 0; y< tileGrid.length; y++) {
+      for (int x = 0; x < tileGrid[y].length; x++) {
+        tileGrid[y][x] = tiles.get(y*gridX+x);
+      }
     }
+
+    return tileGrid;
   }
 
   private String extractWorld(int worldNr) throws FileNotFoundException {
