@@ -5,9 +5,13 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
+ * The rough outline for any game object.
+ *
  * Created by Daniel on 11/2/2014.
  */
 public abstract class Tile extends JPanel {
+  // Any tile can have a single tag which can help
+  // identify specific tiles.
   private String tag = "";
 
   public Tile() {
@@ -28,6 +32,10 @@ public abstract class Tile extends JPanel {
     return this.tag.equals(tag);
   }
 
+  /**
+   * Tiles should respond with a short type name such as "monkey" or "empty".
+   * @return A short, lowercase tile-type name.
+   */
   @Override
   public abstract String toString();
 }

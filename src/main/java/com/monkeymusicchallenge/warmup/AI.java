@@ -106,7 +106,8 @@ public class AI {
     final String monkey = currentLevelLayout
         .getJSONArray(currentPositionOfMonkey.getInt(0))
         .getString(currentPositionOfMonkey.getInt(1));
-    
+
+    System.out.println(gameState);
     // TODO: You may want to do something smarter here
       return this.randomDirection();
   }

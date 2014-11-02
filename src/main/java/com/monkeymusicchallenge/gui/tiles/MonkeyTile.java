@@ -42,7 +42,7 @@ public class MonkeyTile extends Tile {
     this.swag.add(swag);
   }
 
-  public List<String> getSwag() {
+  public List<String> getItems() {
     return swag;
   }
 }
