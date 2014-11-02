@@ -24,4 +24,9 @@ public class SongTile extends Tile {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public String toString() {
+    return "song";
+  }
 }

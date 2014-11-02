@@ -27,4 +27,9 @@ public class WallTile extends Tile {
     }
 
   }
+
+  @Override
+  public String toString() {
+    return "wall";
+  }
 }

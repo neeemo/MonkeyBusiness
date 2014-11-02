@@ -24,4 +24,10 @@ public class AlbumTile extends Tile {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public String toString() {
+    return "album";
+  }
+
 }

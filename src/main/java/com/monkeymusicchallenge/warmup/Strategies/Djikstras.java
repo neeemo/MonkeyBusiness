@@ -1,6 +1,10 @@
-package com.monkeymusicchallenge.warmup;
+package com.monkeymusicchallenge.warmup.Strategies;
 
+import com.monkeymusicchallenge.gui.Ai;
+import com.monkeymusicchallenge.warmup.Point;
+import com.monkeymusicchallenge.warmup.State;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -8,7 +12,7 @@ import java.util.PriorityQueue;
 /**
  * Created by Daniel on 11/1/2014.
  */
-public class Djikstras {
+public class Djikstras implements Ai{
   private final PriorityQueue<State> queue;
   private final State path;
 
@@ -36,4 +40,8 @@ public class Djikstras {
   }
 
 
+  @Override
+  public String move(JSONObject gameState) {
+    return null;
+  }
 }

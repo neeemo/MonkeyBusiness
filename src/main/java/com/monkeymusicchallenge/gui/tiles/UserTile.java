@@ -24,4 +24,9 @@ public class UserTile extends Tile {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public String toString() {
+    return "user";
+  }
 }

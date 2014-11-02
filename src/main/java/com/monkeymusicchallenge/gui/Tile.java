@@ -27,4 +27,7 @@ public abstract class Tile extends JPanel {
   public boolean hasTag(String tag) {
     return this.tag.equals(tag);
   }
+
+  @Override
+  public abstract String toString();
 }

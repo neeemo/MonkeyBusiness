@@ -33,8 +33,16 @@ public class MonkeyTile extends Tile {
     swag = new ArrayList<>();
   }
 
+  @Override
+  public String toString() {
+    return "monkey";
+  }
 
   public void addSwag(String swag) {
     this.swag.add(swag);
+  }
+
+  public List<String> getSwag() {
+    return swag;
   }
 }

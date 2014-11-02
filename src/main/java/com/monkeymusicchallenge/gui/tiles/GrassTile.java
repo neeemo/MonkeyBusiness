@@ -12,4 +12,9 @@ public class GrassTile extends Tile {
   public GrassTile() {
     super();
   }
+
+  @Override
+  public String toString() {
+    return "empty";
+  }
 }

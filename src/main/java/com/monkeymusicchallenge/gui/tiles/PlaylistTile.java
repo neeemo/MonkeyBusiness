@@ -24,4 +24,9 @@ public class PlaylistTile extends Tile {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public String toString() {
+    return "playlist";
+  }
 }
