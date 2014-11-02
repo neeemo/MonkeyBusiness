@@ -3,11 +3,12 @@ package com.monkeymusicchallenge.warmup;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AI {
 
-  public String move(final JSONObject gameState) {
+  public String move(final JSONObject gameState) throws JSONException {
 
     // Every game has a limited number of turns. Use every turn wisely!
     final int remainingNumberOfTurns = gameState.getInt("turns");
@@ -105,15 +106,96 @@ public class AI {
     final String monkey = currentLevelLayout
         .getJSONArray(currentPositionOfMonkey.getInt(0))
         .getString(currentPositionOfMonkey.getInt(1));
-
-
-
+    
     // TODO: You may want to do something smarter here
-    System.out.println(currentLevelLayout);
-    return this.randomDirection();
+      return this.randomDirection();
   }
 
   private String randomDirection() {
     return new String[] {"up", "down", "left", "right"}[ThreadLocalRandom.current().nextInt(4)];
   }
+
+  public String moveBrute(int turn){
+      if(turn == 30){
+          return "up";
+      }
+      if(turn == 29){
+          return "up";
+      }
+      if(turn == 28){
+          return "right";
+      }
+      if(turn == 27){
+          return "right";
+      }
+      if(turn == 26){
+          return "down";
+      }
+      if(turn == 25){
+          return "down";
+      }
+      if(turn == 24){
+          return "right";
+      }
+      if(turn == 23){
+          return "right";
+      }
+      if(turn == 22){
+          return "down";
+      }
+      if(turn == 21){
+          return "right";
+      }
+      if(turn == 20){
+          return "up";
+      }
+      if(turn == 19){
+          return "up";
+      }
+      if(turn == 18){
+          return "right";
+      }
+      if(turn == 17){
+          return "up";
+      }
+      if(turn == 16){
+          return "left";
+      }
+      if(turn == 15){
+          return "right";
+      }
+      if(turn == 14){
+          return "up";
+      }
+      if(turn == 13){
+          return "up";
+      }
+      if(turn == 12){
+          return "left";
+      }
+      if(turn == 11){
+          return "left";
+      }
+      if(turn == 10){
+          return "left";
+      }
+      if(turn == 9){
+          return "down";
+      }
+      if(turn == 8){
+          return "left";
+      }
+      if(turn == 7){
+          return "left";
+      }
+      if(turn == 6){
+          return "up";
+      }
+      if(turn == 5){
+          return "left";
+      }
+      else
+      return "left";
+  }
+
 }

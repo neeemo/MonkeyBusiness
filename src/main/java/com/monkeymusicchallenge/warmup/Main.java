@@ -3,11 +3,14 @@ package com.monkeymusicchallenge.warmup;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
+
+import javax.swing.*;
 
 // Hi! Welcome to the Monkey Music Challenge Java starter kit!
 
@@ -16,9 +19,15 @@ public class Main {
   // You control your monkey by sending POST requests to the Monkey Music server
   private static final String SERVER_URL = "http://warmup.monkeymusicchallenge.com";
 
-  public static void main(final String[] args) {
+
+  public static void main(final String[] args) throws JSONException {
+
+
+
+
 
     // Don't forget to provide the right command line arguments
+
     if (args.length < 2) {
       System.out.println("Usage: java -jar target/warmup.jar <your-team-name> <your-api-key\n");
       if (args.length < 1) {
@@ -33,6 +42,9 @@ public class Main {
     // You identify yourselves by your team name and your API key
     final String teamName = args[0];
     final String apiKey = args[1];
+    
+    //final String teamName = "Monkey Business";
+    //final String apiKey =  "F8xIh5ybskaoCKwbC6E6I69+U3w=";
 
     // You POST to a team-specific URL:
     //   warmup.monkeymusicchallenge.com/team/<your-team-name>
@@ -50,13 +62,14 @@ public class Main {
     JSONObject currentGameState = postToServer(teamUrl,
         "command", "new game",
         "apiKey", apiKey);
-
+    //System.out.println(currentGameState.getJSONArray("layout"));
     // The current game state tells you if you have any turns left to move
     while (currentGameState.getInt("turns") > 0) {
       System.out.println("Remaining turns: " + currentGameState.getInt("turns"));
 
       // Use your AI to decide in which direction to move
       final String nextMoveDirection = ai.move(currentGameState);
+      final String nextBruteDirection = ai.moveBrute(currentGameState.getInt("turns"));
 
       // ...and send a new move command to the server
       currentGameState = postToServer(teamUrl,
@@ -105,5 +118,7 @@ public class Main {
       System.exit(1);
       throw new AssertionError(); // unreachable
     }
+        
   }
+
 }
