@@ -1,4 +1,4 @@
-package com.monkeymusicchallenge.gui;
+package com.monkeymusicchallenge.warmup;
 
 import org.json.JSONObject;
 
@@ -7,5 +7,5 @@ import org.json.JSONObject;
  * and respond with commands.
  */
 public interface Ai {
-  public String move(final JSONObject gameState);
+    public String move(final JSONObject gameState);
 }

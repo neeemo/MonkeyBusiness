@@ -3,14 +3,13 @@ package com.monkeymusicchallenge.warmup;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.monkeymusicchallenge.warmup.Strategies.RandomWalk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-
-import javax.swing.*;
 
 // Hi! Welcome to the Monkey Music Challenge Java starter kit!
 
@@ -42,9 +41,6 @@ public class Main {
     // You identify yourselves by your team name and your API key
     final String teamName = args[0];
     final String apiKey = args[1];
-    
-    //final String teamName = "Monkey Business";
-    //final String apiKey =  "F8xIh5ybskaoCKwbC6E6I69+U3w=";
 
     // You POST to a team-specific URL:
     //   warmup.monkeymusicchallenge.com/team/<your-team-name>
@@ -54,22 +50,21 @@ public class Main {
     System.out.println("Team Url: " + teamUrl);
 
     // We've put the AI-code in a separate class
-    final AI ai = new AI();
+    final Ai ai = new RandomWalk(); // <---------------------------------
 
-    // Allright, time to get started!
+    // Alright, time to get started!
 
     // When we POST a command to the server, it always replies with the current game state
     JSONObject currentGameState = postToServer(teamUrl,
         "command", "new game",
         "apiKey", apiKey);
-    //System.out.println(currentGameState.getJSONArray("layout"));
+
     // The current game state tells you if you have any turns left to move
     while (currentGameState.getInt("turns") > 0) {
       System.out.println("Remaining turns: " + currentGameState.getInt("turns"));
 
       // Use your AI to decide in which direction to move
       final String nextMoveDirection = ai.move(currentGameState);
-      final String nextBruteDirection = ai.moveBrute(currentGameState.getInt("turns"));
 
       // ...and send a new move command to the server
       currentGameState = postToServer(teamUrl,

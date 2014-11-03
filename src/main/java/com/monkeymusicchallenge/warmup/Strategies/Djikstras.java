@@ -1,12 +1,11 @@
 package com.monkeymusicchallenge.warmup.Strategies;
 
-import com.monkeymusicchallenge.gui.Ai;
+import com.monkeymusicchallenge.warmup.Ai;
 import com.monkeymusicchallenge.warmup.Point;
 import com.monkeymusicchallenge.warmup.State;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 /**

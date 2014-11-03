@@ -1,6 +1,6 @@
 package com.monkeymusicchallenge.warmup.Strategies;
 
-import com.monkeymusicchallenge.gui.Ai;
+import com.monkeymusicchallenge.warmup.Ai;
 import org.json.JSONObject;
 
 import java.util.concurrent.ThreadLocalRandom;

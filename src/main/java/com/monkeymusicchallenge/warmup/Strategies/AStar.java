@@ -1,6 +1,7 @@
 package com.monkeymusicchallenge.warmup.Strategies;
 
-import com.monkeymusicchallenge.gui.Ai;
+
+import com.monkeymusicchallenge.warmup.Ai;
 import com.monkeymusicchallenge.warmup.Point;
 import com.monkeymusicchallenge.warmup.State;
 import org.json.JSONArray;
@@ -14,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Created by neeemo on 03/11/14.
  */
-public class AStar implements Ai{
+public class AStar implements Ai {
     private JSONObject world;
     private ArrayList<String> list;
 

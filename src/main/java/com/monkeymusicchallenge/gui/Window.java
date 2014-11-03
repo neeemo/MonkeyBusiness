@@ -1,6 +1,7 @@
 package com.monkeymusicchallenge.gui;
 
 import com.monkeymusicchallenge.gui.tiles.*;
+import com.monkeymusicchallenge.warmup.Ai;
 import com.monkeymusicchallenge.warmup.Point;
 import com.monkeymusicchallenge.warmup.Strategies.AStar;
 import com.monkeymusicchallenge.warmup.Strategies.RandomWalk;
@@ -260,6 +261,21 @@ public class Window extends JFrame {
           json.append("layout", rowJson);
       }
 
+    // Convert the world row by row to json
+    for (Tile[] row : world) {
+
+      JSONArray array = new JSONArray();
+
+      // Convert the Tile-array to a String-array so the JSON-
+      // library knows what to do.
+      for (Tile tile : row) {
+        array.put(tile.toString());
+      }
+
+      // Append each row to the layout property.
+      json.append("layout", array);
+    }
+
     // Append the monkey's position.
     json.append("position", position.y);
     json.append("position", position.x);
@@ -304,8 +320,12 @@ public class Window extends JFrame {
       // Get the players strategy.
       Ai strategy = strategies[window.currentPlayer];
       // Send it the game state and receive a command.
+
       //System.out.println(window.makeState());
       aStar.updateWorld(window.makeState());
+
+      JSONObject json = window.makeState();
+
       String command = strategy.move(window.makeState());
       // Act on the command.
       window.takeTurn(command);
