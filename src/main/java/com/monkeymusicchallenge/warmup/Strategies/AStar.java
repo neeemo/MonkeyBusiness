@@ -1,15 +1,11 @@
-package com.monkeymusicchallenge.warmup.Strategies;
+package com.monkeymusicchallenge.warmup.strategies;
 
 
 import com.monkeymusicchallenge.warmup.Ai;
-import com.monkeymusicchallenge.warmup.Point;
-import com.monkeymusicchallenge.warmup.State;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
