@@ -1,4 +1,4 @@
-package com.monkeymusicchallenge.warmup.Strategies;
+package com.monkeymusicchallenge.warmup.strategies;
 
 import com.monkeymusicchallenge.warmup.Ai;
 import org.json.JSONObject;
