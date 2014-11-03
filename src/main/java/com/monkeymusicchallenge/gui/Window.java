@@ -3,7 +3,7 @@ package com.monkeymusicchallenge.gui;
 import com.monkeymusicchallenge.gui.tiles.*;
 import com.monkeymusicchallenge.warmup.Ai;
 import com.monkeymusicchallenge.warmup.Point;
-import com.monkeymusicchallenge.warmup.Strategies.RandomWalk;
+import com.monkeymusicchallenge.warmup.strategies.RandomWalk;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
