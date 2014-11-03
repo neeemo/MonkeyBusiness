@@ -2,7 +2,9 @@ package com.monkeymusicchallenge.gui;
 
 import com.monkeymusicchallenge.gui.tiles.*;
 import com.monkeymusicchallenge.warmup.Point;
+import com.monkeymusicchallenge.warmup.Strategies.AStar;
 import com.monkeymusicchallenge.warmup.Strategies.RandomWalk;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -29,6 +31,7 @@ public class Window extends JFrame {
    */
   public Window(int worldNr) {
     WorldFactory factory = new WorldFactory("worlds");
+
 
     try {
       world = factory.createWorld(worldNr); // parse the world
@@ -245,19 +248,17 @@ public class Window extends JFrame {
     MonkeyTile monkey = (MonkeyTile) getTileByTag("m" + currentPlayer);
     Point position = getPositionOfTile(monkey);
 
-    // Convert the world row by row to json
-    for (Tile[] row : world) {
-      String[] rowString = new String[row.length];
-
-      // Convert the Tile-array to a String-array so the JSON-
-      // library knows what to do.
-      for (int i = 0; i < rowString.length; i++) {
-        rowString[i] = row[i].toString();
+      // Convert the world row by row to json
+      for (Tile[] row : world) {
+          JSONArray rowJson = new JSONArray();
+          // Convert the Tile-array to a String-array so the JSON-
+          // library knows what to do.
+          for (Tile tile : row) {
+              rowJson.put(tile.toString());
+          }
+          // Append each row to the layout property.
+          json.append("layout", rowJson);
       }
-
-      // Append each row to the layout property.
-      json.append("layout", rowString);
-    }
 
     // Append the monkey's position.
     json.append("position", position.y);
@@ -275,7 +276,8 @@ public class Window extends JFrame {
     for (String item : items) {
       json.append("pickedUp", item);
     }
-
+    //System.out.println(worldTiles.toString());
+    //System.out.println("End here");
     return json;
   }
 
@@ -287,17 +289,23 @@ public class Window extends JFrame {
   public static void main(String[] args) {
     Window window = new Window(Integer.parseInt(args[0]));
 
+    //System.out.println(window.makeState());
+
     // The different monkey strategies in the game.
+    AStar aStar = new AStar(window.makeState());
     Ai[] strategies = {
+        aStar,
         new RandomWalk(),
         new RandomWalk()
     };
+    //System.out.println(window.makeState().get("layout"));
 
     while(window.nrOfTurns > 0) {
       // Get the players strategy.
       Ai strategy = strategies[window.currentPlayer];
       // Send it the game state and receive a command.
-      System.out.println(window.makeState());
+      //System.out.println(window.makeState());
+      aStar.updateWorld(window.makeState());
       String command = strategy.move(window.makeState());
       // Act on the command.
       window.takeTurn(command);
