@@ -1,4 +1,4 @@
-package com.monkeymusicchallenge.gui;
+package com.monkeymusicchallenge.warmup;
 
 import org.json.JSONObject;
 
