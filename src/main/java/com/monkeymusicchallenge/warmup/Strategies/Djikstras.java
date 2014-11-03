@@ -1,4 +1,4 @@
-package com.monkeymusicchallenge.warmup.strategies;
+package com.monkeymusicchallenge.warmup.Strategies;
 
 import com.monkeymusicchallenge.warmup.Ai;
 import com.monkeymusicchallenge.warmup.Point;

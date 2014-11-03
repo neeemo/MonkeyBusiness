@@ -3,7 +3,7 @@ package com.monkeymusicchallenge.warmup;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.monkeymusicchallenge.warmup.strategies.RandomWalk;
+import com.monkeymusicchallenge.warmup.Strategies.RandomWalk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
