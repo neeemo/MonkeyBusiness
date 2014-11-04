@@ -24,6 +24,7 @@ public class Window extends JFrame {
   private Tile[][] world = new Tile[0][0]; // the tile grid
   private int nrOfTurns = 30; // The sum of all players turns.
   private int winner = -1;
+  private int looser = -1;
 
   /**
    * Create the initial game world and show it in a window.
@@ -162,9 +163,11 @@ public class Window extends JFrame {
     } else if (target instanceof UserTile) {
       remove(target);
       world[targetY][targetX] = new GrassTile();
-
       if (callWinner()) { // Check if game is won
         this.winner = currentPlayer;
+      }
+      else{
+          this.looser = currentPlayer;
       }
     }
 
@@ -268,6 +271,9 @@ public class Window extends JFrame {
     // Check if player has won the game.
     json.put("win", currentPlayer == winner);
 
+    //Check if player has lost the game.
+    json.put("lose", currentPlayer == looser);
+
     // Calculate the individual players turn based on the global nr of turns.
     int playerTurn = (int) (nrOfTurns/nrOfPlayers + (1-1/nrOfPlayers));
     json.put("turns", playerTurn);
@@ -301,7 +307,7 @@ public class Window extends JFrame {
     };
     //System.out.println(window.makeState().get("layout"));
 
-    while(window.nrOfTurns > 0) {
+    while(window.nrOfTurns > 0 && (!window.makeState().getBoolean("lose"))) {
       // Get the players strategy.
       Ai strategy = strategies[window.currentPlayer];
       // Send it the game state and receive a command.
@@ -314,6 +320,7 @@ public class Window extends JFrame {
       String command = strategy.move(window.makeState());
       // Act on the command.
       window.takeTurn(command);
+
       // Wait about half a second so you get visual feedback.
       try {
         Thread.sleep(250);

@@ -67,10 +67,10 @@ public class AStar implements Ai {
 
 
         for(Node n : nodes){
-            if(n.value.equals("user")){
+            if(n.value.equals("user5:0")){
                 search(nodes.get(0), n);
                 pathToTarget = printPath(n);
-                //System.out.println(pathToTarget);
+                //System.out.println(pathToTarget.size());
             }
         }
 
@@ -229,7 +229,7 @@ public class AStar implements Ai {
                         nodes.add(new Node("wall", 999));
                         break;
                     case "user":
-                        nodes.add(new Node("user", 0));
+                        nodes.add(new Node("user" + (row + ":" +col), 0));
                         break;
                     case "album":
                         nodes.add(new Node("album" + (row + ":" +col), calculateDistance(col, row, findTile("user", "col"), findTile("user", "row"))));
@@ -359,7 +359,7 @@ public class AStar implements Ai {
     public String move(JSONObject gameState) {
 
 
-        return this.aStarMovement();
+        return this.aStarMovement(gameState);
         //Temporary return
         //return this.randomDirection(gameState.getInt("turns"));
     }
@@ -369,13 +369,20 @@ public class AStar implements Ai {
         return new String[] {"up", "down", "left", "right"}[ThreadLocalRandom.current().nextInt(4)];
     }
 
-    private String aStarMovement(){
-        String direction = getDirectionFromNodes(pathToTarget.get(steps), pathToTarget.get(steps+1));
-        if(direction.equals("error")){
-            System.out.println("Something went wrong! Shutting down");
-            System.exit(0);
+    private String aStarMovement(JSONObject gameState){
+        String direction = "";
+        System.out.println(steps);
+        System.out.println(pathToTarget.size());
+        if(steps < pathToTarget.size()) {
+
+            direction = getDirectionFromNodes(pathToTarget.get(steps), pathToTarget.get(steps + 1));
+            if (direction.equals("error")) {
+                System.out.println("Something went wrong! Shutting down");
+                System.exit(0);
+            }
+
+            steps++;
         }
-        steps++;
         return direction;
     }
 }
