@@ -1,78 +1,55 @@
 package com.monkeymusicchallenge.warmup;
 
 import org.json.JSONArray;
-
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Daniel on 11/1/2014.
  */
-public class State implements Comparable<State> {
-  private Point position;
-  private JSONArray world;
-  private List<String> commands;
+public class State {
 
-  public State(JSONArray world, Point start) {
-    this.world = world;
-    this.position = start;
+  private final JSONObject state;
+  private final JSONArray layout;
+  private final Point position;
+  private final String won;
+  private final String turns;
+  private final JSONArray items;
+  private final Point opponent;
+
+  public State(JSONObject state) {
+    this.state = new JSONObject(state.toString());
+    layout = state.getJSONArray("layout");
+    JSONArray posArray = state.getJSONArray("position");
+    this.position = new Point(posArray.getInt(1), posArray.getInt(0));
+    this.won = state.getString("win");
+    this.turns = state.getString("turns");
+    this.items = state.getJSONArray("pickedUp");
+    this.opponent = getOpponentPosition();
   }
 
-  private State(JSONArray world, List<String> commands, Point position) {
-    this.world = world;
-    this.commands = commands;
-    this.position = position;
+  public boolean hasOpponent() {
+    return opponent != null;
   }
 
-  public int cost() {
-    return commands.size();
-  }
-
-  public Point getCurrentPosition() {
-    return position;
-  }
-
-  public State addCommand(String command) {
-    Point nextPos;
-
-    switch (command) {
-      case "left":
-        nextPos = position.setX(position.x - 1);
-      break;
-      case "right":
-        nextPos = position.setX(position.x + 1);
-        break;
-      case "up":
-        nextPos = position.setY(position.y + 1);
-        break;
-      case "down": // fall through
-      default:
-        nextPos = position.setY(position.y - 1);
-        break;
+  public String getAt(int x, int y) {
+    try {
+      return layout.getJSONArray(y).getString(x);
+    } catch (JSONException e) {
+      throw new IndexOutOfBoundsException();
     }
+  }
 
-    String thing = "";
-
-    switch (world.getJSONArray(nextPos.y).getString(nextPos.x)) {
-      case "user":
-        break;
-      case "monkey":
-        break;
-      case "playlist":
-        break;
-      case "wall":
-        break;
-      case "album":
-        break;
-      case "song":
-        break;
+  public Point getOpponentPosition() {
+    for (int y = 0; y<layout.length(); y++) {
+      JSONArray row = layout.getJSONArray(y);
+      for (int x = 0; x<row.length(); x++) {
+        String obj = row.getString(x);
+        if (obj.equals("monkey") && (x != position.x || y != position.y) ) {
+          return new Point(x, y);
+        }
+      }
     }
-
-
     return null;
-  }
-
-  @Override
-  public int compareTo(State other) {
-    return (new Integer(this.cost())).compareTo(other.cost());
   }
 }
