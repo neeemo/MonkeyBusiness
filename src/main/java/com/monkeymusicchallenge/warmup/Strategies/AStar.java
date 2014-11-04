@@ -4,10 +4,7 @@ import com.monkeymusicchallenge.warmup.Ai;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -19,8 +16,8 @@ public class AStar implements Ai {
     private ArrayList<String> list;
     private String[][] stringTile;
     private ArrayList<Node> nodes;
-    private Set<Node> explored;
-
+    private List<Node> pathToTarget;
+    private int steps;
 
     //Node class, we can put this in a separate head file when done
     class Node{
@@ -30,6 +27,7 @@ public class AStar implements Ai {
         public double f_scores = 0;
         public Edge[] adjacencies;
         public Node parent;
+
 
         public Node(String val, double hVal){
             value = val;
@@ -51,6 +49,7 @@ public class AStar implements Ai {
             target = targetNode;
             cost = costVal;
         }
+
     }
 
     //Constructor calls methods etc.
@@ -60,17 +59,101 @@ public class AStar implements Ai {
         nodes = new ArrayList<Node>();
         stringTile = new String[jsonArray.getJSONArray(0).length()][jsonArray.length()];
         list = new ArrayList<String>();
-        explored = new HashSet<Node>();
+        steps = 0;
 
         updateTiles();
         initiateNodes();
         setAdjancies();
+
+
+        for(Node n : nodes){
+            if(n.value.equals("user")){
+                search(nodes.get(0), n);
+                pathToTarget = printPath(n);
+                //System.out.println(pathToTarget);
+            }
+        }
+
+
     }
 
     //If we want to update tiles or recalculate every step something can happen in this method
     public void updateWorld(JSONObject world){
         this.world = world;
 
+    }
+
+    public List<Node> printPath(Node target){
+        List<Node> path = new ArrayList<Node>();
+
+        for(Node node = target; node != null; node = node.parent){
+            path.add(node);
+        }
+
+        Collections.reverse(path);
+
+        return path;
+    };
+
+    public void search(Node source, Node target){
+        Set<Node> explored = new HashSet<Node>();
+        PriorityQueue<Node> queue = new PriorityQueue<Node>(20,
+                new Comparator<Node>() {
+                    @Override
+                    public int compare(Node i, Node j) {
+                        if(i.f_scores > j.f_scores){
+                            return 1;
+                        }
+                        else if(i.f_scores < j.f_scores){
+                            return -1;
+                        }
+                        else{
+                            return 0;
+                        }
+                    }
+                });
+        //start cost is 0 at beginning
+        source.g_scores = 0;
+        queue.add(source);
+        boolean found = false;
+
+        while((!queue.isEmpty())&&(!found)){
+            //the node with lowest f_score
+            Node current = queue.poll();
+            explored.add(current);
+
+            //target found
+            if(current.value.equals(target.value)){
+                found = true;
+            }
+
+            //check every child of current node
+            for(Edge e : current.adjacencies){
+                Node child = e.target;
+                double cost = e.cost;
+                double temp_g_scores = current.g_scores + cost;
+                double temp_f_scores = temp_g_scores + child.h_scores;
+
+                //if child node has been evaluated and newer f_score is higher, skip/break
+                if((explored.contains(child) &&
+                        (temp_f_scores >= child.f_scores))){
+                        continue;
+                }
+                else if((!queue.contains(child)) ||
+                        (temp_f_scores < child.f_scores)){
+
+                        child.parent = current;
+                        child.g_scores = temp_g_scores;
+                        child.f_scores = temp_f_scores;
+
+                        if(queue.contains(child)){
+                            queue.remove(child);
+                        }
+
+                        queue.add(child);
+                }
+            }
+        }
     }
 
     //update tiles
@@ -131,7 +214,7 @@ public class AStar implements Ai {
                 String tile = stringTile[row][col];
                 switch(tile){
                     case "monkey":
-                        nodes.add(new Node("monkey", calculateDistance(col, row, findTile("user", "col"), findTile("user", "row"))));
+                        nodes.add(new Node("monkey" + (row + ":" +col), calculateDistance(col, row, findTile("user", "col"), findTile("user", "row"))));
                         break;
                     case "empty":
                         nodes.add(new Node("empty" + (row + ":" +col), calculateDistance(col, row, findTile("user", "col"), findTile("user", "row"))));
@@ -152,7 +235,7 @@ public class AStar implements Ai {
                         nodes.add(new Node("album" + (row + ":" +col), calculateDistance(col, row, findTile("user", "col"), findTile("user", "row"))));
                         break;
                 }
-                System.out.println("Row: " + row + " Col: " + col + " = " + nodes.get(printrow).value);
+                //System.out.println("Row: " + row + " Col: " + col + " = " + nodes.get(printrow).value);
                 //System.out.println(nodes.get(printrow).value + " distance to user: " + nodes.get(printrow).h_scores);
                 row++;
                 printrow++;
@@ -202,7 +285,7 @@ public class AStar implements Ai {
             }
             col++;
         }
-
+        /*
         //Just a test print to find Adjacencies to a tile/node
         for(int i = 0; i < nodes.size(); i++){
             if(nodes.get(i).value.equals("empty3:4")){
@@ -212,6 +295,7 @@ public class AStar implements Ai {
 
             }
         }
+        */
     }
 
 
@@ -252,14 +336,46 @@ public class AStar implements Ai {
         return 0;
     }
 
+    public String getDirectionFromNodes(Node source, Node target){
+        String s = source.value.replaceAll("[A-Za-z]", "");
+        String t = target.value.replaceAll("[A-Za-z]", "");
+        System.out.println("source " + s + " target " + t);
+        if(Character.getNumericValue(s.charAt(0)) < Character.getNumericValue(t.charAt(0))){
+            return "down";
+        }
+        else if(Character.getNumericValue(s.charAt(0)) > Character.getNumericValue(t.charAt(0))){
+            return "up";
+        }
+        else if(Character.getNumericValue(s.charAt(2)) < Character.getNumericValue(t.charAt(2))){
+            return "right";
+        }
+        else if(Character.getNumericValue(s.charAt(2)) > Character.getNumericValue(t.charAt(2))){
+            return "left";
+        }
+        return "error";
+    }
+
     @Override
     public String move(JSONObject gameState) {
+
+
+        return this.aStarMovement();
         //Temporary return
-        return this.randomDirection();
+        //return this.randomDirection(gameState.getInt("turns"));
     }
 
     //Temporary code for NullPointerException bug
-    private String randomDirection() {
+    private String randomDirection(int turn) {
         return new String[] {"up", "down", "left", "right"}[ThreadLocalRandom.current().nextInt(4)];
+    }
+
+    private String aStarMovement(){
+        String direction = getDirectionFromNodes(pathToTarget.get(steps), pathToTarget.get(steps+1));
+        if(direction.equals("error")){
+            System.out.println("Something went wrong! Shutting down");
+            System.exit(0);
+        }
+        steps++;
+        return direction;
     }
 }

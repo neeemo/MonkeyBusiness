@@ -314,7 +314,6 @@ public class Window extends JFrame {
       String command = strategy.move(window.makeState());
       // Act on the command.
       window.takeTurn(command);
-
       // Wait about half a second so you get visual feedback.
       try {
         Thread.sleep(250);
