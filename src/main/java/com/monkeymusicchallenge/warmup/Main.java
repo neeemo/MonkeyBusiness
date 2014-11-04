@@ -21,10 +21,6 @@ public class Main {
 
   public static void main(final String[] args) throws JSONException {
 
-
-
-
-
     // Don't forget to provide the right command line arguments
 
     if (args.length < 2) {
