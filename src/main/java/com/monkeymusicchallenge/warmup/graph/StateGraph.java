@@ -77,5 +77,8 @@ public class StateGraph<E> {
     System.out.println(v1.equals(v2));
     System.out.println(v1.equals(new Vertex<String>("Vertex 1")));
     System.out.println(v1.equals(new Vertex<Integer>(1)));
+
+    v1.putTag("settled", "yes");
+    System.out.println(v1.getTag("settled"));
   }
 }
