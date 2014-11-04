@@ -152,7 +152,7 @@ public class AStar implements Ai {
                         nodes.add(new Node("album" + (row + ":" +col), calculateDistance(col, row, findTile("user", "col"), findTile("user", "row"))));
                         break;
                 }
-                //System.out.println("Row: " + row + " Col: " + col + " = " + nodes.get(printrow).value);
+                System.out.println("Row: " + row + " Col: " + col + " = " + nodes.get(printrow).value);
                 //System.out.println(nodes.get(printrow).value + " distance to user: " + nodes.get(printrow).h_scores);
                 row++;
                 printrow++;
@@ -182,11 +182,11 @@ public class AStar implements Ai {
                         if(!nodes.get(index - rowSize).value.equals("wall"))
                             edgeList.add(new Edge(nodes.get(index - colSize), 1));
                     }
-                    if (row < rowSize - 2) {
+                    if (row < rowSize - 1) {
                         if(!nodes.get(index + 1).value.equals("wall"))
                             edgeList.add(new Edge(nodes.get(index + 1), 1));
                     }
-                    if (col < colSize - 2) {
+                    if (col < colSize - 1) {
                         if(!nodes.get(index + colSize).value.equals("wall"))
                             edgeList.add(new Edge(nodes.get(index + colSize), 1));
                     }
@@ -205,7 +205,7 @@ public class AStar implements Ai {
 
         //Just a test print to find Adjacencies to a tile/node
         for(int i = 0; i < nodes.size(); i++){
-            if(nodes.get(i).value.equals("monkey")){
+            if(nodes.get(i).value.equals("empty3:4")){
                 for(Edge e: nodes.get(i).adjacencies){
                     System.out.println(e.target);
                 }
