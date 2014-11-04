@@ -258,20 +258,35 @@ public class AStar implements Ai {
                     ArrayList<Edge> edgeList = new ArrayList<Edge>();
                     //Check possible adjacencies and adds to list
                     if (row != 0) {
-                        if(!nodes.get(index - 1).value.equals("wall"))
+                        if(nodes.get(index -1).value.equals("empty")){
                             edgeList.add(new Edge(nodes.get(index - 1), 1));
+                        }
+                        else if(!nodes.get(index - 1).value.equals("wall")){
+                            edgeList.add(new Edge(nodes.get(index - 1), 2));
+                        }
                     }
                     if (col != 0) {
-                        if(!nodes.get(index - rowSize).value.equals("wall"))
+                        if(nodes.get(index - rowSize).value.equals("empty")) {
                             edgeList.add(new Edge(nodes.get(index - colSize), 1));
+                        }
+                        else if(!nodes.get(index - rowSize).value.equals("wall")){
+                            edgeList.add(new Edge(nodes.get(index - colSize), 2));
+                        }
                     }
                     if (row < rowSize - 1) {
-                        if(!nodes.get(index + 1).value.equals("wall"))
+                        if(nodes.get(index + 1).value.equals("empty")) {
                             edgeList.add(new Edge(nodes.get(index + 1), 1));
+                        }
+                        else if(!nodes.get(index + 1).value.equals("wall")){
+                            edgeList.add(new Edge(nodes.get(index + 1), 2));
+                        }
                     }
                     if (col < colSize - 1) {
-                        if(!nodes.get(index + colSize).value.equals("wall"))
+                        if(nodes.get(index + colSize).value.equals("empty")) {
                             edgeList.add(new Edge(nodes.get(index + colSize), 1));
+                        }
+                        else if(!nodes.get(index + colSize).value.equals("wall"))
+                            edgeList.add(new Edge(nodes.get(index + colSize), 2));
                     }
 
                     //creates allowed adjacencies from list to node
