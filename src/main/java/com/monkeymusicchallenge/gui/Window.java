@@ -261,21 +261,6 @@ public class Window extends JFrame {
           json.append("layout", rowJson);
       }
 
-    // Convert the world row by row to json
-    for (Tile[] row : world) {
-
-      JSONArray array = new JSONArray();
-
-      // Convert the Tile-array to a String-array so the JSON-
-      // library knows what to do.
-      for (Tile tile : row) {
-        array.put(tile.toString());
-      }
-
-      // Append each row to the layout property.
-      json.append("layout", array);
-    }
-
     // Append the monkey's position.
     json.append("position", position.y);
     json.append("position", position.x);
